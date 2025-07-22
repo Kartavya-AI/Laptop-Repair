@@ -1,0 +1,39 @@
+system_analysis_task:
+  description: >
+    1. Thoroughly analyze the user's problem description: "{problem_description}".
+    2. Formulate a hypothesis and create a step-by-step diagnostic plan.
+    3. For each step in your plan, determine the precise, safe, read-only Windows command
+       (e.g., wmic, tasklist, systeminfo, chkdsk, sfc /scannow) needed to gather information.
+    4. Delegate the execution of each command, one by one, to the command_executor_agent.
+    5. Await the output from the executor after each command.
+    6. Analyze the collective output from all commands to identify the root cause of the issue.
+    7. Synthesize your findings into a final, clear, and concise report.
+    8. If a safe fix is identified, provide the exact command or step-by-step instructions for the user.
+  expected_output: >
+    A comprehensive final report for the user, containing:
+    - **Problem Summary:** A brief restatement of the user's issue.
+    - **Investigation & Analysis:** Your interpretation of the data gathered from the commands.
+    - **Final Diagnosis:** A clear conclusion about the root cause.
+    - **Recommended Actions:** Safe, step-by-step instructions or a single, safe command to resolve the issue.
+
+command_execution_task:
+  description: >
+    Execute the system command requested by the Lead Diagnostician Agent.
+    Capture the full output (both stdout and stderr) and return it directly
+    without any modification or analysis. The command to execute will be
+    delegated to you.
+  expected_output: >
+    The raw, complete string output from the executed system command. This output
+    will be used by the Lead Diagnostician Agent for their analysis.
+
+solution_scripting_task:
+  description: >
+    Based on the final diagnosis from the Lead System Diagnostician,
+    create a Windows PowerShell (.ps1) script that will resolve the identified issues.
+    The script MUST be simple, include comments explaining each command, and be as safe as possible.
+    Frame the final output with clear markers: a diagnosis section, and then the script
+    itself enclosed between '--- SCRIPT START ---' and '--- SCRIPT END ---'.
+  expected_output: >
+    A final report containing a clear diagnosis of the problem, followed by
+    the PowerShell script content to fix the issue. The script must be enclosed
+    in the specified markers.
