@@ -1,9 +1,5 @@
-# src/laptop_repair/tools/custom_tool.py
-
 import subprocess
 from typing import Type
-
-# Import directly from pydantic, not pydantic.v1
 from pydantic import BaseModel, Field
 from crewai.tools import BaseTool
 
